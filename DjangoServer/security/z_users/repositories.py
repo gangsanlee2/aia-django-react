@@ -12,7 +12,7 @@ class UserRepository(object):
         loginUser = User.objects.get(user_email=login_info['user_email'])
         print(f"해당 email 을 가진  User ID: *** \n {loginUser.id}")
         if loginUser.password == login_info['password']:
-            dbUser = User.objects.all().filter(id=loginUser.id).values()[0]
+            dbUser = self.find_by_id(loginUser.id)
             print(f" DBUser is {dbUser}")
             serializer = UserSerializer(dbUser, many=False)
             return JsonResponse(data=serializer.data, safe=False)
@@ -21,7 +21,13 @@ class UserRepository(object):
             return JsonResponse({"data": "WRONG_PASSWORD"})
 
     def get_all(self):
-        return Response(UserSerializer(User.objects.all(), many=True).data)
+        return User.objects.all()
 
-    def find_by_id(self):
-        return Response(UserSerializer(User.objects.all(), many=True).data)
+    def find_by_id(self, id):
+        return User.objects.all().filter(id=id).values()[0]
+
+    def find_user_by_email(self, param):
+        return User.objects.all().filter(user_email=param).values()[0]
+
+    def find_users_by_name(self, param):
+        return User.objects.all().filter(user_name=param).values()
