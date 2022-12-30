@@ -1,7 +1,7 @@
 import os
 import platform
 myos = platform.system()
-root = r"C:\Users\bitcamp\PycharmProjects\djangoProject"
+root = r"C:\Users\bitcamp\aia-django-react\DjangoServer"
 def dir_path(param):
     if (param == "algorithms") :
         return os.path.join(root, "basic", param)
