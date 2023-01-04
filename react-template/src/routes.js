@@ -45,6 +45,21 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 
+// my own files
+import Counter from "layouts/myown/cmm/components/Counter";
+import Schedule from "layouts/myown/cop/containers/Schedule";
+import Login from "layouts/myown/uat/containers/Login";
+import Stroke from "layouts/myown/blog/components/Stroke";
+import IrisForm from "layouts/myown/shop/containers/IrisForm";
+import FashionForm from "layouts/myown/dlearn/containers/FashionForm";
+import Number from "layouts/myown/dlearn/components/Number";
+import NaverMovie from "layouts/myown/webcrawler/conponents/NaverMovie";
+import SamsungReport from "layouts/myown/nlp/components/SamsungReport";
+import NaverMovieReview from "layouts/myown/nlp/components/NaverMovieReview";
+import UserList from "layouts/myown/uat/containers/UserList";
+import KoreanClassify from "layouts/myown/nlp/components/KoreanClassify";
+import AiTrader from "layouts/myown/dlearn/components/AiTrader";
+
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -112,6 +127,111 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+  },
+  //##########from ReactServer##########
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">Counter</Icon>,
+    route: "/counter",
+    component: <Counter />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">Schedule</Icon>,
+    route: "/todos/",
+    component: <Schedule />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">Login</Icon>,
+    route: "/login",
+    component: <Login />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">Stroke</Icon>,
+    route: "/stroke",
+    component: <Stroke />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">IrisForm</Icon>,
+    route: "/iris",
+    component: <IrisForm />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">FashionForm</Icon>,
+    route: "/fashion",
+    component: <FashionForm />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">Number</Icon>,
+    route: "/number",
+    component: <Number />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">NaverMovie</Icon>,
+    route: "/naver-movie",
+    component: <NaverMovie />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">SamsungReport</Icon>,
+    route: "/samsung-report",
+    component: <SamsungReport />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">NaverMovieReview</Icon>,
+    route: "/naver-movie-review",
+    component: <NaverMovieReview />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">UserList</Icon>,
+    route: "/user-list",
+    component: <UserList />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">KoreanClassify</Icon>,
+    route: "/korean-classify",
+    component: <KoreanClassify />,
+  },
+  {
+    type: "collapse",
+    name: "Sign Up",
+    key: "sign-up",
+    icon: <Icon fontSize="small">AiTrader</Icon>,
+    route: "/aitrader",
+    component: <AiTrader />,
   },
 ];
 
