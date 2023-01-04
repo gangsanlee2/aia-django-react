@@ -19,7 +19,6 @@ from tqdm import tqdm
 from admin.path import dir_path
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
-
 '''
 https://arxiv.org/abs/1511.06434
 Unsupervised Representation Learning 

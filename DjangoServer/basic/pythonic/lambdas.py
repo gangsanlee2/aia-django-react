@@ -7,11 +7,14 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 
+from admin.path import dir_path
+
+
 def MosaicLambdas(cmd, target): #Command Pattern
     #cmd = params[0]
     #target = params[1]
     if cmd == 'IMAGE_READ':
-        return (lambda x: cv.imread(os.path.join('mosaic', 'data', x)))(target)
+        return (lambda x: cv.imread(os.path.join(dir_path('mosaic'), 'data', x)))(target)
     elif cmd == 'GRAYSCALE':
         return (lambda x: cv.cvtColor(x, cv.COLOR_BGR2GRAY))(target)
     elif cmd == 'FROM_ARRAY':

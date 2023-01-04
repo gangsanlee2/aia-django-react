@@ -4,5 +4,6 @@ from basic.nlp import views
 
 urlpatterns = [
     url(r'samsung-report', views.samsung_report),  # GET
-    url(r'naver-movie-review', views.naver_movie_review),  # GET
+    url(r'naver-movie-review', views.naver_movie_review),
+    url(r'korean-classify', views.korean_classify_view),
 ]

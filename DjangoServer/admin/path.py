@@ -5,7 +5,7 @@ root = r"C:\Users\bitcamp\aia-django-react\DjangoServer"
 def dir_path(param):
     if (param == "algorithms") :
         return os.path.join(root, "basic", param)
-    elif (param == "aitrater") \
+    elif (param == "aitrader") \
             or (param == "dc_gan") \
             or (param == "fashion") \
             or (param == "fruits") \
