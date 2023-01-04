@@ -1,4 +1,5 @@
 import os.path
+from abc import abstractmethod, ABCMeta
 from enum import Enum
 
 import numpy as np
@@ -6,11 +7,11 @@ import pandas as pd
 from keras import Sequential, Input, Model
 from keras.callbacks import EarlyStopping
 from keras.layers import Dense, LSTM, concatenate
-from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from tensorflow import keras
+from sklearn.preprocessing import StandardScaler
+
 from admin.path import dir_path
-from abc import abstractmethod, ABCMeta
+
 
 class ModelType(Enum):
     dnn_model = 1
@@ -29,7 +30,7 @@ class Activations(Enum):
 
 class AiTraderBase(metaclass=ABCMeta):
     @abstractmethod
-    def show_csv(self, **kwargs):
+    def show_csv(self):
         pass
     @abstractmethod
     def create(self):
@@ -67,12 +68,10 @@ class AiTraderModel(AiTraderBase):
         self.df_ko = None
 
     def show_csv(self):
-        print(" ##### kospi ##### ")
-        print(df_kospi)
-        print(df_kospi.shape)
-        print(" ##### samsung ##### ")
         print(df_samsung)
         print(df_samsung.shape)
+        print(df_kospi)
+        print(df_kospi.shape)
 
     def data_trimming(self):
         '''

@@ -1,6 +1,7 @@
 import os.path
 import warnings
 
+import numpy as np
 import pandas as pd
 from prophet import Prophet
 from tensorflow import keras
@@ -61,6 +62,11 @@ class AiTraderService(object):
         plt.savefig(os.path.join(dir_path("aitrader"), "kia_close.png"))
         plt.show()
 
+    def label(self, param):
+        ai = DnnModel()
+        x_train_scaled, x_test_scaled, y_train, y_test = ai.data_scaling(ai.load_numpy()[0])
+        return str(y_test[int(param)][0])
+
     def pred_dnn(self, param):
         ai = DnnModel()
         x_train_scaled, x_test_scaled, y_train, y_test = ai.data_scaling(ai.load_numpy()[0])
@@ -71,6 +77,7 @@ class AiTraderService(object):
     def pred_lstm(self, param):
         ai = LstmModel()
         x_train_scaled, x_test_scaled, y_train, y_test = ai.data_scaling(ai.load_numpy()[0])
+        x_train_scaled, x_test_scaled = ai.back_to_3d(x_train_scaled, x_test_scaled)
         model = keras.models.load_model(os.path.join(dir_path('aitrader'), "save", "lstm.h5"))
         predict = model.predict(x_test_scaled)
         return str(predict[int(param)][0])
@@ -79,8 +86,6 @@ class AiTraderService(object):
         ai = DnnEnsemble()
         x1_train_scaled, x1_test_scaled, y1_train, y1_test = ai.data_scaling(ai.load_numpy()[0])
         x2_train_scaled, x2_test_scaled, y2_train, y2_test = ai.data_scaling(ai.load_numpy()[1])
-        x1_train_scaled, x1_test_scaled = ai.back_to_3d(x1_train_scaled, x1_test_scaled)
-        x2_train_scaled, x2_test_scaled = ai.back_to_3d(x2_train_scaled, x2_test_scaled)
         model = keras.models.load_model(os.path.join(dir_path('aitrader'), "save", "dnn_ensemble.h5"))
         predict = model.predict([x1_test_scaled, x2_test_scaled])
         return str(predict[int(param)][0])
@@ -96,3 +101,6 @@ class AiTraderService(object):
         predict = model.predict([x1_test_scaled, x2_test_scaled])
         return str(predict[int(param)][0])
 
+if __name__ == '__main__':
+    ai = AiTraderService()
+    print(ai.label(0))

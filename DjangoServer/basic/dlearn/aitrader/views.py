@@ -12,6 +12,15 @@ def aitrader(request):
     print("### here 2 ###")
     service = AiTraderService()
     print("### here 3 ###")
-    result = service.predict(data)
+    label = service.label(data)
+    result_dnn = service.pred_dnn(data)
+    result_lstm = service.pred_lstm(data)
+    result_dnn_ensemble = service.pred_dnn_ensemble(data)
+    result_lstm_ensemble = service.pred_lstm_ensemble(data)
     print("### here 4 ###")
-    return JsonResponse({'result': result})
+    return JsonResponse({'label': label,
+                         'result_dnn': result_dnn,
+                         'result_lstm': result_lstm,
+                         'result_dnn_ensemble': result_dnn_ensemble,
+                         'result_lstm_ensemble': result_lstm_ensemble,
+                         })
