@@ -1,4 +1,3 @@
-
 import random
 
 import pandas as pd
@@ -6,7 +5,6 @@ from sqlalchemy import create_engine
 
 from security.z_users.lambdas import lambda_string, lambda_k_name, lambda_phone, \
     lambda_birth, address_list, job_list, interests_list
-
 
 class UserService(object):
     def __init__(self):
@@ -37,16 +35,6 @@ class UserService(object):
         job = random.choice(job_list)
         user_interests = random.choice(interests_list)
         token = 'JWT fefege...'
-        '''
-        user_email = models.TextField()
-        password = models.CharField(max_length=10)
-        user_name = models.TextField()
-        phone = models.TextField()
-        birth = models.TextField()
-        address = models.TextField(blank=True)
-        job = models.TextField()
-        user_interests = models.TextField()
-        '''
         return user_email, password, user_name, phone, birth, address, job, user_interests, token
 
 
