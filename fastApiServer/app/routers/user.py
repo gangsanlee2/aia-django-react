@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 import app.repositories.user as dao
 from app.database import get_db
-from app.models.user import User
+from app.schemas.user import User
 
 router = APIRouter()
 
@@ -43,3 +43,4 @@ async def get_user(id: str, db: Session = Depends(get_db)):
 async def get_users_by_job(search:str, page: int, db: Session = Depends(get_db)):
     dao.find_users_by_job(search, page,db)
     return {"data": "success"}
+
