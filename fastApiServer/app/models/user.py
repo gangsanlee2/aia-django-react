@@ -1,11 +1,11 @@
 from uuid import uuid4
-from .mixins import TimestampMixin
+from .mixins import TimeStampMixin
 from ..database import Base
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
-class User(Base, TimestampMixin): # Base
+class User(Base, TimeStampMixin): # Base
 
     __tablename__="users"
 
