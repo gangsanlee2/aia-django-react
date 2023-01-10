@@ -2,7 +2,8 @@ LOGIN = ""
 
 
 class UserService:
-    pass
+    def login(self):
+        pass
 
 
 class Url:
