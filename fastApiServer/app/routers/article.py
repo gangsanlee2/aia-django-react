@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 import app.repositories.article as dao     # DAO data access object
 from app.database import get_db
-from app.models.article import Article
+from app.schemas.article import Article
 
 router = APIRouter()
 
@@ -20,7 +20,7 @@ async def update(id: str, item: Article, db: Session = Depends(get_db)):
     return {"data": "success"}
 
 @router.delete("/{id}")
-async def delete(id:str, item: Article, db: Session = Depends(get_db)):
+async def delete(id: str, item: Article, db: Session = Depends(get_db)):
     dao.delete(id,item,db)
     return {"data": "success"}
 
@@ -34,7 +34,7 @@ async def get_article(id: str, db: Session = Depends(get_db)):
     dao.find_article(id, db)
     return {"data": "success"}
 
-@router.get("/title/{search}/{no}")
+@router.get("/title/{search}/{page}")
 async def get_articles_by_title(search: str, page: int, db: Session = Depends(get_db)):
     dao.find_articles_by_title(search, page, db)
     return {"data": "success"}

@@ -39,7 +39,7 @@ async def get_user(id: str, db: Session = Depends(get_db)):
     dao.find_user(id, db)
     return {"data": "success"}
 
-@router.get("/job/{search}/{no}")
+@router.get("/job/{search}/{page}")
 async def get_users_by_job(search:str, page: int, db: Session = Depends(get_db)):
     dao.find_users_by_job(search, page,db)
     return {"data": "success"}
