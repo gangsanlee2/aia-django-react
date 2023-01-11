@@ -1,16 +1,19 @@
 from uuid import uuid4
-from .mixins import TimeStampMixin
-from ..database import Base
-from sqlalchemy import Column, ForeignKey, Integer, String
+
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 
-class User(Base, TimeStampMixin): # Base
+from .mixins import TimeStampMixin
+from ..database import Base
 
-    __tablename__="users"
+
+class User(Base, TimeStampMixin):
+
+    __tablename__ = "users"
 
     user_id = Column(UUIDType(binary=False), primary_key=True, default=uuid4)
-    user_email = Column(String(20))
+    user_email = Column(String(20), unique=True)
     password = Column(String(20), nullable=False)
     user_name = Column(String(20), nullable=False)
     phone = Column(String(20))

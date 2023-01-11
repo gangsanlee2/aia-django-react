@@ -1,9 +1,9 @@
+from pydantic import BaseConfig
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import UUIDType
 from .mixins import TimeStampMixin
 from ..database import Base
-
 
 
 class Article(Base, TimeStampMixin):
@@ -19,4 +19,4 @@ class Article(Base, TimeStampMixin):
     user = relationship('User', back_populates='articles')
 
     class Config:
-        arbitrary_types_allowed = True
+        BaseConfig.arbitrary_types_allowed = True
