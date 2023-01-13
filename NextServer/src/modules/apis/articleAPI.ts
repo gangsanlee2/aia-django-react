@@ -1,3 +1,3 @@
-export const user = {
+export const article = {
     
 }

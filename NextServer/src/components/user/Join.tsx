@@ -27,7 +27,7 @@ export default function Join() {
                   message: "이메일 형식에 맞게 입력해주세요"
               }
           })}
-            type="email"  id="user_email" name="user_email" 
+            type="text"  id="user_email" name="user_email" 
             placeholder="name@example.com"
             required minLength= {10} maxLength={20}/> <br/>
             
