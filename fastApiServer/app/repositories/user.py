@@ -3,9 +3,13 @@ from app.models.user import User
 import pymysql
 from sqlalchemy.orm import Session
 pymysql.install_as_MySQLdb()
+from app.schemas.user import UserDTO
 
-def join(item: User, db: Session):
-    return None
+def join(userDTO: UserDTO, db: Session)->str:
+    user = User(**userDTO.dict())
+    db.add(user)
+    db.commit()
+    return "success"
 
 def login(id: str, item: User, db: Session):
     return None

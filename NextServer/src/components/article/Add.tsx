@@ -1,3 +1,1 @@
-export default function Add(){
-    return (<></>)
-}
+export default function AddArticle() {}

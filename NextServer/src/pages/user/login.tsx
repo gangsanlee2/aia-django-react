@@ -1,6 +1,5 @@
 import { NextPage } from "next"
-import Login from "@/components/user/Login";
-import GoogleLogin from "@/components/user/GoogleLogin";
+import { Login,  GoogleLogin} from "@/components/user"
 
 
 const LoginPage: NextPage = function(){

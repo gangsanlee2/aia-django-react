@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const SERVER = process.env.NEXT_PUBLIC_SERVER_URL
+// const SERVER = process.env.NEXT_PUBLIC_SERVER_URL
 // 인증 필요없는 axios 
+const SERVER = "http://localhost:8000/"
 export const client = axios.create({
     baseURL: `${SERVER}`,
     headers: {

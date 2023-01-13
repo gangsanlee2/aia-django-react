@@ -5,25 +5,20 @@ import { User } from '@/modules/types'
 import { author, client } from "@/modules/controllers"
 
 export const user = {
-    async join(payload: { 
-        user_id? : string,
-        user_email : string,
-        password : string,
-        user_name : string,
-        phone? : string,
-        birth? : string,
-        address? : string,
-        job? : string,
-        user_interests? : string,
-        token? : string,
-        created_at? : string,
-        updated_at? : string}){
-            const url = `${context.server}/users/join`
-            alert(`URL is ${url}`)
+    async join(payload: User){
             try{
-                const response : AxiosResponse<unknown, User[]> = await axios.post(url)
-                alert(` fastapi 다녀옴: ${JSON.stringify(response.data)} `)
-                return response.data
+                const response : AxiosResponse<any, User[]> =
+                await axios.post(`http://localhost:8000/users/join`, payload, {headers: {
+                    "Content-Type" : "application/json",
+                    Authorization: "JWT fefege...",
+                }})
+                if(response.data === "failure"){
+                    alert(' 결과: API 내부 join 실패  ')
+                }else{
+                    alert(' 결과: API 내부 join 성공  '+ JSON.stringify(response.data))
+                }
+                
+                return response
             }catch(err){
                 console.log(` ${currentTime} : userSaga 내부에서 join 실패 `)
             }

@@ -1,5 +1,5 @@
 import { NextPage } from "next"
-const UserListPage: NextPage = function(){
+const UserListPage: NextPage =  function(){
     
     return <>
         <table className='user-list'>
@@ -16,3 +16,5 @@ const UserListPage: NextPage = function(){
     </>
 }
 export default UserListPage
+
+
