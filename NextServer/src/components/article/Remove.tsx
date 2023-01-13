@@ -1,1 +1,3 @@
-export default function RemoveArticle() {}
+export default function Remove(){
+    return (<></>)
+}

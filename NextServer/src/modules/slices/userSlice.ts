@@ -71,4 +71,3 @@ export const {joinRequest, joinSuccess, joinFailure,
 } = userSlice.actions
 export const userAction = actions
 export default reducer
-        

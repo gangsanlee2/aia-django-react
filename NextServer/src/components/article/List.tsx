@@ -1,1 +1,3 @@
-export default function ArticleList() {}
+export default function List(){
+    return (<></>)
+}

@@ -1,7 +1,6 @@
-
 export default function UserList(){
-    
-    return <>
+    return (<>
+    <h2>User List</h2>
         <table className='user-list'>
             <thead>
                 <tr>
@@ -10,10 +9,7 @@ export default function UserList(){
                 </tr>
             </thead>
             <tbody>
-            
             </tbody>
         </table>
-    </>
+    </>)
 }
-
-

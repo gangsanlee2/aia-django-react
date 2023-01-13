@@ -1,1 +1,3 @@
-export default function ArticleDetail() {}
+export default function Detail(){
+    return (<></>)
+}
