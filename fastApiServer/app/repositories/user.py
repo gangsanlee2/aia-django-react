@@ -18,6 +18,7 @@ def delete(id, item, db):
 
 
 def find_users(page:int, db: Session):
+    print(f" type of Session is {Session}")
     print(f" page number is {page}")
     return db.query(User).all()
 

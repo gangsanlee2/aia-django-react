@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 def find_posts_legacy():
     cursor = conn.cursor()
-    sql = "select * from articles"
+    sql = "select * from articles"      # 레거시인 이유: 쿼리가 노출되어 있다. -> 보안의 위험성
     cursor.execute(sql)
     return cursor.fetchall()
 

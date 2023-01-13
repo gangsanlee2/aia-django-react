@@ -3,6 +3,7 @@ import sys
 
 from fastapi_sqlalchemy import DBSessionMiddleware
 
+from .admin.utils import currentTime
 from .database import init_db
 from .env import DB_URL
 
@@ -13,8 +14,7 @@ from fastapi import FastAPI, APIRouter
 from .routers.user import router as user_router
 from .routers.article import router as article_router
 
-from datetime import datetime
-print(f" ################ app.main Started At {datetime.now()} ################# ")
+print(f" ################ app.main Started At {currentTime()} ################# ")
 
 router = APIRouter()
 router.include_router(user_router, prefix="/users", tags=["users"])

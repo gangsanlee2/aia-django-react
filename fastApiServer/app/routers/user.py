@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 import app.repositories.user as dao
+from app.admin.utils import currentTime
 from app.database import get_db
 from app.schemas.user import User
 
@@ -9,6 +10,7 @@ router = APIRouter()
 
 @router.post("/")
 async def join(item: User, db: Session = Depends(get_db)):
+    print(f" 회원가입에 진입한 시각: {currentTime()} ")
     user_dict = item.dict()
     print(f"SignUp Inform : {user_dict}")
     dao.join(item, db)
