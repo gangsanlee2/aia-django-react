@@ -1,40 +1,67 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from starlette.responses import JSONResponse, RedirectResponse
 
-import app.repositories.article as dao     # DAO data access object
+from app.cruds.article import ArticleCrud
 from app.database import get_db
-from app.schemas.article import Article
+from app.schemas.article import ArticleDTO, IndivArticleDTO
 
 router = APIRouter()
 
-@router.post("/")
-async def write(id: str, item: Article, db: Session = Depends(get_db)):
-    post_dict = item.dict()
-    print(f"New Article Inform : {post_dict}")
-    dao.new_article(id, item, db)
-    return {"data": "success"}
+@router.post("/write")
+async def new_article(dto: IndivArticleDTO, db: Session = Depends(get_db)):
+    if ArticleCrud(db).match_token_for_article(request_article=dto):
+        return JSONResponse(status_code=200,
+                            content=dict(
+                                msg=ArticleCrud(db).add_article(request_article=dto)))
+    else:
+        RedirectResponse(url='/no-match-token', status_code=302)
 
-@router.put("/{id}")
-async def update(id: str, item: Article, db: Session = Depends(get_db)):
-    dao.update(id,item,db)
-    return {"data": "success"}
 
-@router.delete("/{id}")
-async def delete(id: str, item: Article, db: Session = Depends(get_db)):
-    dao.delete(id,item,db)
-    return {"data": "success"}
+@router.put("/update")
+async def update(dto: IndivArticleDTO, db: Session = Depends(get_db)):
+    if ArticleCrud(db).match_token_for_article(request_article=dto):
+        return JSONResponse(status_code=200,
+                            content=dict(
+                                msg=ArticleCrud(db).update_article(dto)))
+    else:
+        RedirectResponse(url='/no-match-token', status_code=302)
 
-@router.get("/{page}")
+@router.delete("/delete")
+async def delete(dto: IndivArticleDTO, db: Session = Depends(get_db)):
+    if ArticleCrud(db).match_token_for_article(request_article=dto):
+        article_crud = ArticleCrud(db)
+        message = article_crud.delete_article(dto)
+        return JSONResponse(status_code=400, content=dict(msg=message))
+    else:
+        RedirectResponse(url='/no-match-token', status_code=302)
+
+@router.get("/page/{page}")
 async def get_articles(page: int, db: Session = Depends(get_db)):
-    ls = dao.find_articles(page,db)
+    article_crud = ArticleCrud(db)
+    result = article_crud.find_all_articles_per_page(page)
+    return result
+
+@router.get("/list")
+async def get_all_articles(db: Session = Depends(get_db)):
+    article_crud = ArticleCrud(db)
+    ls = article_crud.find_all_articles()
     return {"data": ls}
 
-@router.get("/email/{id}")
-async def get_article(id: str, db: Session = Depends(get_db)):
-    dao.find_article(id, db)
-    return {"data": "success"}
+@router.get("/seq/{id}")
+async def get_article_by_seq(dto: ArticleDTO, db: Session = Depends(get_db)):
+    article_crud = ArticleCrud(db)
+    result = article_crud.find_article_by_seq(dto)
+    return result
 
-@router.get("/title/{search}/{page}")
-async def get_articles_by_title(search: str, page: int, db: Session = Depends(get_db)):
-    dao.find_articles_by_title(search, page, db)
-    return {"data": "success"}
+@router.get("/user/{id}/page/{page}")
+async def get_articles_by_user(dto: ArticleDTO, page: int, db: Session = Depends(get_db)):
+    article_crud = ArticleCrud(db)
+    result = article_crud.find_articles_by_user_id(dto, page)
+    return result
+
+@router.get("/title/{search}/page/{page}")
+async def get_articles_by_title(title: str, page: int, db: Session = Depends(get_db)):
+    article_crud = ArticleCrud(db)
+    result = article_crud.find_articles_by_title(title, page)
+    return result

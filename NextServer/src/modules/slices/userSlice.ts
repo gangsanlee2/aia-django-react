@@ -1,17 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { User } from '@/modules/types'
+import { UserLoginInput } from "@/modules/types"
+import { stat } from "fs"
 
 type UserState = {
     data: User[]
     status: 'idle' | 'loading' | 'failed'
     isLoggined: boolean
     error: any
+    token: string
+    
 }
 const initialState: UserState = {
     data: [],
     status: 'idle',
     isLoggined: false,
-    error: null
+    error: null,
+    token: ''
 }
 
 const userSlice = createSlice({
@@ -19,7 +24,6 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         joinRequest(state: UserState, action: PayloadAction<User>){
-            alert(`2 joinRequest ${JSON.stringify(action.payload)}`)
             state.status = 'loading'
             state.error = null
         },
@@ -31,22 +35,26 @@ const userSlice = createSlice({
             state.status = 'failed'
             state.data = [...state.data, payload]
         },
-        loginRequest(state: UserState, _payload){
+        loginRequest(state: UserState, action: PayloadAction<UserLoginInput>){
+            alert(` 1 ${JSON.stringify(action.payload)}`)
             state.status = 'loading'
         },
         loginSuccess(state: UserState, {payload}){
             state.status = 'idle'
             state.data = [...state.data, payload]
+            state.token = payload.token
         },
         loginFailure(state: UserState, {payload}){
             state.status = 'failed'
             state.data = [...state.data, payload]
         },
-        logoutRequest(state: UserState) {
+        logoutRequest(state: UserState, {payload}) {
+            alert(`5 token >>>> state.token is ${payload}`)
             state.status = 'loading';
             state.error = null;
+            state.token = '';
         },
-        logoutSuccess(state: UserState ){
+        logoutSuccess(state: UserState){
             state.status = 'idle'
             window.location.href = '/'
         },

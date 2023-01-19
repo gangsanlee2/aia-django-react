@@ -1,7 +1,7 @@
 
 from typing import List, Optional
 from pydantic import BaseModel
-from app.schemas.article import Article
+from app.schemas.article import ArticleDTO
 
 
 class UserDTO(BaseModel):
@@ -22,4 +22,15 @@ class UserDTO(BaseModel):
         orm_mode = True
 
 class UserDetail(UserDTO):
-    articles: List[Article] = []
+    articles: List[ArticleDTO] = []
+
+class UserUpdate(BaseModel):
+    user_id: Optional[str]
+    phone: Optional[str]
+    job: Optional[str]
+    user_interests: Optional[str]
+    token: Optional[str]
+    updated_at: Optional[str]
+
+    class Config:
+        orm_mode = True

@@ -5,13 +5,14 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga'
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import userReducer from '@/modules/slices/userSlice'
+import articleReducer from '@/modules/slices/articleSlice'
 
 
 const isDev = process.env.NODE_ENV ==='development'
 const sagaMiddleware = createSagaMiddleware()
 
 const combinedReducer = combineReducers({
-    user: userReducer,
+    user: userReducer, article: articleReducer
 })
 const rootReducer = (
 	state: ReturnType<typeof combinedReducer>,
@@ -29,7 +30,7 @@ const rootReducer = (
 const makeStore = () =>{
     const store = 
     configureStore({
-        reducer:{ rootReducer },
+        reducer:{ user: userReducer, article: articleReducer },
         middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({serializableCheck: false})
             .prepend(sagaMiddleware)
