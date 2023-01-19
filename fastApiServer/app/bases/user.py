@@ -30,7 +30,7 @@ class UserBase(metaclass=ABCMeta):
     def delete_user(self, request_user: UserDTO) -> str: pass
 
     @abstractmethod
-    def find_all_users_per_page(self, page: int) -> List[User]: pass
+    def find_all_users_ordered(self) -> List[User]: pass
 
     @abstractmethod
     def find_user_by_token(self, request_user: UserDTO) -> User: pass
@@ -52,5 +52,8 @@ class UserBase(metaclass=ABCMeta):
 
     @abstractmethod
     def match_token_for_modify(self, request_user: UserUpdate) -> bool: pass
+
+    @abstractmethod
+    def count_all_users(self) -> int: pass
 
 

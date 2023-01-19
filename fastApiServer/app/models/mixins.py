@@ -14,3 +14,4 @@ class TimeStampMixin(object):
     created_at = Column(Timestamp, nullable=False, default=now)
     updated_at = Column(Timestamp, nullable=False, default=now)
 
+

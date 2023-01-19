@@ -33,3 +33,11 @@ class ArticleBase(metaclass=ABCMeta):
 
     @abstractmethod
     def match_token_for_article(self, request_article: IndivArticleDTO) -> bool: pass
+
+    @abstractmethod
+    def find_all_articles_ordered(self) -> List[Article]: pass
+
+    @abstractmethod
+    def count_all_articles(self) -> int: pass
+
+

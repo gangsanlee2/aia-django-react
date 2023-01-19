@@ -16,21 +16,24 @@ class ArticleCrud(ArticleBase, ABC):
 
     def add_article(self, request_article: IndivArticleDTO) -> str:
         indiv_article = request_article.dict()
-        user_id = self.db.query(User.user_id).filter(User.token == indiv_article['token']).one_or_none()
-        is_success = self.db.add(Article(title=indiv_article['title'], content=indiv_article['content'], user_id=user_id))
+        user = self.db.query(User).filter(User.token == indiv_article['token']).one_or_none()
+        is_success = self.db.add(Article(title=indiv_article['title'], content=indiv_article['content'], user_id=user.user_id))
         self.db.commit()
         return "article is successfully written" if is_success != 0 else "it's failed to write article"
 
     def update_article(self, request_article: IndivArticleDTO) -> str:
-        article = Article(**request_article.dict())
-        update_data = request_article.dict(exclude_unset=True)
-        is_success = self.db.query(Article).filter(Article.art_seq == article.art_seq).update(update_data)
+        indiv_article = request_article.dict()
+        user = self.db.query(User).filter(User.token == indiv_article['token']).one_or_none()
+        is_success = self.db.query(Article).filter(Article.user_id == user.user_id).\
+            filter(Article.art_seq == indiv_article["art_seq"]).\
+            update({"title": indiv_article["title"], "content": indiv_article["content"]})
         self.db.commit()
         return "article is successfully updated" if is_success != 0 else "it's failed to update article"
 
     def delete_article(self, request_article: IndivArticleDTO) -> str:
-        article = Article(**request_article.dict())
-        target = self.db.get(Article, article.art_seq)
+        indiv_article = request_article.dict()
+        user = self.db.query(User).filter(User.token == indiv_article['token']).one_or_none()
+        target = self.db.query(Article).filter(Article.user_id == user.user_id).filter(Article.art_seq == indiv_article["art_seq"]).one_or_none()
         is_success = self.db.delete(target)
         self.db.commit()
         return "article is successfully deleted" if is_success != 0 else "it's failed to delete article"
@@ -60,3 +63,9 @@ class ArticleCrud(ArticleBase, ABC):
         user = self.db.query(User).filter(User.token == article_token).one_or_none()
         db_user = self.db.query(User).filter(User.user_id == user.user_id).one_or_none()
         return True if db_user is not None else False
+
+    def find_all_articles_ordered(self) -> List[Article]:
+        return self.db.query(Article).order_by(Article.art_seq).all()
+
+    def count_all_articles(self) -> int:
+        return self.db.query(Article).count()

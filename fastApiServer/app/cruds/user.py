@@ -89,10 +89,8 @@ class UserCrud(UserBase, ABC):
         self.db.commit()
         return "탈퇴 성공입니다." if is_success != 0 else "탈퇴 실패입니다."
 
-    def find_all_users_per_page(self, page: int) -> List[User]:
-        print(f" ##### page number is {page}")
-        results = self.db.query(User).order_by(User.created_at).offset(5)
-        return results
+    def find_all_users_ordered(self) -> List[User]:
+        return self.db.query(User).order_by(User.created_at).all()
 
     def find_user_by_token(self, request_user: UserDTO) -> User:
         user = User(**request_user.dict())
@@ -127,6 +125,8 @@ class UserCrud(UserBase, ABC):
         db_user = self.db.query(User).filter(User.token == user.token).one_or_none()
         return True if db_user != None else False
 
+    def count_all_users(self) -> int:
+        return self.db.query(User).count()
 
 
 

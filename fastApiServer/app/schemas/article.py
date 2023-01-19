@@ -14,7 +14,9 @@ class ArticleDTO(BaseModel):
     class Config:
         orm_mode = True
 
+
 class IndivArticleDTO(BaseModel):
+    art_seq: Optional[int]
     title: Optional[str]
     content: Optional[str]
     token: Optional[str]
