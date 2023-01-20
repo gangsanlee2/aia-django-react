@@ -33,21 +33,17 @@ class ArticleCrud(ArticleBase, ABC):
     def delete_article(self, request_article: IndivArticleDTO) -> str:
         indiv_article = request_article.dict()
         user = self.db.query(User).filter(User.token == indiv_article['token']).one_or_none()
-        target = self.db.query(Article).filter(Article.user_id == user.user_id).filter(Article.art_seq == indiv_article["art_seq"]).one_or_none()
+        target = self.db.query(Article).filter(Article.user_id == user.user_id).\
+            filter(Article.art_seq == indiv_article["art_seq"]).one_or_none()
         is_success = self.db.delete(target)
         self.db.commit()
         return "article is successfully deleted" if is_success != 0 else "it's failed to delete article"
 
-    def find_all_articles_per_page(self, page: int) -> List[ArticleDTO]:
-        print(f"### page number is {page}")
-        return self.db.query(Article).all()
-
     def find_all_articles(self) -> List[ArticleDTO]:
         return self.db.query(Article).all()
 
-    def find_article_by_seq(self, request_article: ArticleDTO) -> ArticleDTO:
-        article = Article(**request_article.dict())
-        return self.db.query(Article).filter(Article.art_seq == article.art_seq).one_or_none()
+    def find_article_by_seq(self, seq: int) -> ArticleDTO:
+        return self.db.query(Article).filter(Article.art_seq == id).one_or_none()
 
     def find_articles_by_user_id(self, request_article: ArticleDTO, page: int) -> List[ArticleDTO]:
         print(f"### page number is {page}")
@@ -66,6 +62,3 @@ class ArticleCrud(ArticleBase, ABC):
 
     def find_all_articles_ordered(self) -> List[Article]:
         return self.db.query(Article).order_by(Article.art_seq).all()
-
-    def count_all_articles(self) -> int:
-        return self.db.query(Article).count()

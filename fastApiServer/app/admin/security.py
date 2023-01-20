@@ -19,16 +19,20 @@ JWT_REFRESH_SECRET_KEY = "JWT_REFRESH_SECRET_KEY"
 
 password_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 def myuuid():
     alphabet = string.ascii_lowercase + string.digits
     su = shortuuid.ShortUUID(alphabet=alphabet)
     return su.random(length=8)
 
+
 def get_hashed_password(plain_password: str) -> str:
     return password_context.hash(plain_password)
 
+
 def verify_password(plain_password: str, hashed_password: str):
     return password_context.verify(plain_password, hashed_password)
+
 
 def generate_token(subject: Union[str, Any], expires_delta: int = None):
     if expires_delta is not None:
@@ -40,8 +44,10 @@ def generate_token(subject: Union[str, Any], expires_delta: int = None):
     print(f" 발급된 토큰 {encoded_jwt}")
     return encoded_jwt
 
+
 def generate_token_by_secrets():
     return secrets.token_urlsafe(32) # python3.8 기준으로 DEFAULT_ENTROPY == 32
+
 
 def refresh_token(subject: Union[str, Any], expires_delta: int = None):
     if expires_delta is not None:
@@ -52,6 +58,7 @@ def refresh_token(subject: Union[str, Any], expires_delta: int = None):
     to_encode = {"exp": expires_delta, "sub": str(subject)}
     encoded_jwt = jwt.encode(to_encode, JWT_REFRESH_SECRET_KEY, ALGORITHM)
     return encoded_jwt
+
 
 def get_expiration_date():
     return utc_seoul() + timedelta(days=3)

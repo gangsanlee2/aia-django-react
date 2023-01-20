@@ -4,6 +4,7 @@ from fastapi_pagination import paginate, Page, Params
 from sqlalchemy.orm import Session
 from starlette.responses import JSONResponse, RedirectResponse
 
+from app.admin.utils import paging
 from app.cruds.user import UserCrud
 from app.database import get_db
 from app.schemas.user import UserDTO, UserUpdate, UserList
@@ -74,9 +75,11 @@ async def get_all_users_per_page(page: int, db: Session = Depends(get_db)):
     default_size = 5
     params = Params(page=page, size=default_size)
     results = UserCrud(db).find_all_users_ordered()
-    page_result = paginate(results, params)
+    user_info = paginate(results, params)
     count = UserCrud(db).count_all_users()
-    dc = {"count": count, "result": page_result}
+    page_info = paging(request_page=page, row_cnt=count)
+    dc = {"page_info": page_info,
+          "user_info": user_info}
     return JSONResponse(status_code=200, content=jsonable_encoder(dc))
 
 

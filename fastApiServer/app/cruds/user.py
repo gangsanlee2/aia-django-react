@@ -4,7 +4,7 @@ from typing import List
 from fastapi import HTTPException
 from sqlalchemy import select
 
-from app.admin.security import verify_password, generate_token, get_hashed_password
+from app.admin.security import verify_password, generate_token, get_hashed_password, myuuid
 from app.bases.user import UserBase
 from app.database import conn
 from app.models.user import User
@@ -25,6 +25,7 @@ class UserCrud(UserBase, ABC):
         user = User(**request_user.dict())
         user_id = self.find_user_by_email(request_user=request_user)
         if user_id == "":
+            user.user_id = myuuid()
             user.password = get_hashed_password(user.password)
             is_success = self.db.add(user)
             self.db.commit()

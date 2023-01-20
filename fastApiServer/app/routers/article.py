@@ -64,11 +64,12 @@ async def get_all_articles(db: Session = Depends(get_db)):
     ls = article_crud.find_all_articles()
     return {"data": ls}
 
+##### 여기부터 고민할 부분 : 프런트에서 넘어오는 요청이 value(scalar)인지 아니면 dto(dictionary)인지 판단 필요 #####
 
-@router.get("/seq/{id}")
-async def get_article_by_seq(dto: ArticleDTO, db: Session = Depends(get_db)):
+@router.get("/id/{id}")
+async def get_article_by_seq(seq: int, db: Session = Depends(get_db)):
     article_crud = ArticleCrud(db)
-    result = article_crud.find_article_by_seq(dto)
+    result = article_crud.find_article_by_seq(seq)
     return result
 
 

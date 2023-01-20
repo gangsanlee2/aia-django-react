@@ -17,13 +17,10 @@ class ArticleBase(metaclass=ABCMeta):
     def delete_article(self, request_article: IndivArticleDTO) -> str: pass
 
     @abstractmethod
-    def find_all_articles_per_page(self, page: int) -> List[Article]: pass
-
-    @abstractmethod
     def find_all_articles(self) -> List[ArticleDTO]: pass
 
     @abstractmethod
-    def find_article_by_seq(self, request_article: ArticleDTO) -> Article: pass
+    def find_article_by_seq(self, seq: int) -> Article: pass
 
     @abstractmethod
     def find_articles_by_user_id(self, request_article: ArticleDTO, page: int) -> List[Article]: pass
@@ -36,8 +33,5 @@ class ArticleBase(metaclass=ABCMeta):
 
     @abstractmethod
     def find_all_articles_ordered(self) -> List[Article]: pass
-
-    @abstractmethod
-    def count_all_articles(self) -> int: pass
 
 
