@@ -10,8 +10,10 @@ def currentTime():
 def utc_seoul():
     return datetime.now(timezone('Asia/Seoul'))
 
+
 from random import randrange
 from datetime import timedelta
+
 
 def random_date(start, end):
     """
@@ -23,11 +25,13 @@ def random_date(start, end):
     random_second = randrange(int_delta)
     return start + timedelta(seconds=random_second)
 
+
 def between_random_date():
     d1 = datetime.strptime('1988-1-1', '%Y-%m-%d')
     d2 = datetime.strptime('2005-12-31', '%Y-%m-%d')
     target = str(random_date(d1, d2))
     return target.split()[0]
+
 
 def paging(request_page: int, row_cnt: int):
     page_size = 10
