@@ -1,3 +1,5 @@
+import os
+
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras import preprocessing
@@ -5,6 +7,7 @@ from keras_preprocessing.sequence import pad_sequences
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+from app.admin.path import dir_path
 from app.services.chatbot_ngin.utils.Preprocess import Preprocess
 
 
@@ -24,8 +27,8 @@ def read_file(file_name):
                 this_sent.append(tuple(l.split()))
     return sents
 
-p = Preprocess(word2index_dic='/usr/src/app/app/services/chatbot_ngin/train_tools/dict/chatbot_dict.bin',
-               userdic='/usr/src/app/app/services/chatbot_ngin/utils/user_dic.tsv')
+p = Preprocess(word2index_dic=os.path.join(dir_path('train_tools'), 'dict/chatbot_dict.bin'),
+               userdic=os.path.join(dir_path('utils'), 'user_dic.tsv'))
 
 # 학습용 말뭉치 데이터를 불러옴
 corpus = read_file('ner_train.txt')

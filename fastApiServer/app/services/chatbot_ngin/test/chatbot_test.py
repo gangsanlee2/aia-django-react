@@ -1,3 +1,6 @@
+import os
+
+from app.admin.path import dir_path
 from app.services.chatbot_ngin.config.DatabaseConfig import *
 
 
@@ -24,13 +27,13 @@ query = "자장면 주문할게요"
 
 # 의도 파악
 from app.services.chatbot_ngin.models.intent.IntentModel import IntentModel
-intent = IntentModel(model_name='/usr/src/app/app/services/chatbot_ngin/models/intent/intent_model.h5', proprocess=p)
+intent = IntentModel(model_name=os.path.join(dir_path('models'), 'intent/intent_model.h5'), proprocess=p)
 predict = intent.predict_class(query)
 intent_name = intent.labels[predict]
 
 # 개체명 인식
 from app.services.chatbot_ngin.models.ner.NerModel import NerModel
-ner = NerModel(model_name='/usr/src/app/app/services/chatbot_ngin/models/ner/ner_model.h5', proprocess=p)
+ner = NerModel(model_name=os.path.join(dir_path('models'), 'ner/ner_model.h5'), proprocess=p)
 predicts = ner.predict(query)
 ner_tags = ner.predict_tags(query)
 

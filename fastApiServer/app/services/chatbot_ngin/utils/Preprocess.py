@@ -1,6 +1,7 @@
-from konlpy.tag import Komoran
 import pickle
-import jpype
+
+from _jpype import attachThreadToJVM
+from konlpy.tag import Komoran
 
 
 class Preprocess:
@@ -31,7 +32,7 @@ class Preprocess:
 
     # 형태소 분석기 POS 태거
     def pos(self, sentence):
-        jpype.attachThreadToJVM()
+        attachThreadToJVM()
         return self.komoran.pos(sentence)
 
     # 불용어 제거 후, 필요한 품사 정보만 가져오기

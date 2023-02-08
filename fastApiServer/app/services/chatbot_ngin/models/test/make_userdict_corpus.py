@@ -1,7 +1,9 @@
 import csv
+import os
 
+from app.admin.path import dir_path
 
-file = '/usr/src/app/app/services/chatbot_ngin/models/intent/ner/ner_train.txt'
+file = os.path.join(dir_path('models'), 'intent/ner/ner_train.txt')
 
 # 학습 파일 불러오기
 def read_file(file_name):

@@ -1,10 +1,14 @@
 # 필요한 모듈 임포트
+import os
+
 import pandas as pd
 import tensorflow as tf
 from keras import preprocessing
 from keras.models import Model
 from keras.layers import Input, Embedding, Dense, Dropout, Conv1D, GlobalMaxPool1D, concatenate
 from keras_preprocessing.sequence import pad_sequences
+
+from app.admin.path import dir_path
 
 # 데이터 읽어오기
 train_file = "total_train_data.csv"
@@ -13,8 +17,8 @@ queries = data['query'].tolist()
 intents = data['intent'].tolist()
 
 from app.services.chatbot_ngin.utils.Preprocess import Preprocess
-p = Preprocess(word2index_dic='/usr/src/app/app/services/chatbot_ngin/train_tools/dict/chatbot_dict.bin',
-               userdic='/usr/src/app/app/services/chatbot_ngin/utils/user_dic.tsv')
+p = Preprocess(word2index_dic=os.path.join(dir_path('tarin_tools'), 'dict/chatbot_dict.bin'),
+               userdic=os.path.join(dir_path('utils'), 'user_dic.tsv'))
 
 # 단어 시퀀스 생성
 sequences = []

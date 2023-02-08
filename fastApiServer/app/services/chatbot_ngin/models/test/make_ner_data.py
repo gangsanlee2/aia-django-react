@@ -1,12 +1,16 @@
 import csv
+import os
+
 from konlpy.tag import Komoran
 from random import  *
+
+from app.admin.path import dir_path
 
 date_file = 'date.csv'
 food_file = 'food.csv'
 sent_file = '주문조합.csv'
 
-komoran = Komoran(userdic='/usr/src/app/app/services/chatbot_ngin/utils/user_dic.tsv')
+komoran = Komoran(userdic=os.path.join(dir_path('utils'), 'user_dic.tsv'))
 
 file = open("output_ner_train.txt", 'w')
 with open(date_file, mode='r', encoding='utf-8-sig') as df:

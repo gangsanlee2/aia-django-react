@@ -1,13 +1,16 @@
+import os
+
 from keras.models import Model, load_model
 from keras import preprocessing
 import numpy as np
 from keras_preprocessing.sequence import pad_sequences
 
+from app.admin.path import dir_path
 from app.services.chatbot_ngin.utils.Preprocess import Preprocess
 
 
-p = Preprocess(word2index_dic='/usr/src/app/app/services/chatbot_ngin/train_tools/dict/chatbot_dict.bin',
-               userdic='/usr/src/app/app/services/chatbot_ngin/utils/user_dic.tsv')
+p = Preprocess(word2index_dic=os.path.join(dir_path('train_tools'), 'dict/chatbot_dict.bin'),
+               userdic=os.path.join(dir_path('utils'), 'user_dic.tsv'))
 
 
 new_sentence = '오늘 오전 13시 2분에 탕수육 주문 하고 싶어요'

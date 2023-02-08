@@ -1,7 +1,11 @@
+import os
+
 import tensorflow as tf
 from keras.models import Model, load_model
 from keras import preprocessing
 from keras_preprocessing.sequence import pad_sequences
+
+from app.admin.path import dir_path
 
 intent_labels = {0: "인사", 1: "욕설", 2: "주문", 3: "예약", 4: "기타"}
 
@@ -9,10 +13,10 @@ intent_labels = {0: "인사", 1: "욕설", 2: "주문", 3: "예약", 4: "기타"
 model = load_model('intent_model.h5')
 
 query = "오늘 탕수육 주문 가능한가요?"
-query = "안녕하세요?"
+
 from app.services.chatbot_ngin.utils.Preprocess import Preprocess
-p = Preprocess(word2index_dic='/usr/src/app/app/services/chatbot_ngin/train_tools/dict/chatbot_dict.bin',
-               userdic='/usr/src/app/app/services/chatbot_ngin/utils/user_dic.tsv')
+p = Preprocess(word2index_dic=os.path.join(dir_path('train_tools'), 'dict/chatbot_dict.bin'),
+               userdic=os.path.join(dir_path('utils'), 'user_dic.tsv'))
 pos = p.pos(query)
 keywords = p.get_keywords(pos, without_tag=True)
 seq = p.get_wordidx_sequence(keywords)

@@ -1,6 +1,5 @@
 import tensorflow as tf
-from keras.models import Model, load_model
-from keras import preprocessing
+from keras.models import load_model
 from keras_preprocessing.sequence import pad_sequences
 
 

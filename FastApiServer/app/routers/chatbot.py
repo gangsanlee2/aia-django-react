@@ -3,8 +3,8 @@ from typing import List
 from fastapi import WebSocket, WebSocketDisconnect, APIRouter
 from fastapi.responses import HTMLResponse
 
-from app.services.chatbot.kakao_kogpt3 import KakaoKoGpt3
-from app.services.chatbot_ngin.china_food_order import ChinaFoodOrder
+from app.services.chatbot_ngin.chatbot_ngin import ChatbotNgin
+from app.services.chatbot_ngin.return_intent import return_intent
 
 router = APIRouter()
 
@@ -80,7 +80,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
         while True:
             data = await websocket.receive_text()
             await manager.send_personal_message(f"You wrote: {data}", websocket)
-            answer = ChinaFoodOrder().exec(data)
+            answer = ChatbotNgin().exec(data)
             await manager.broadcast(f"Chatbot says: {answer}")
     except WebSocketDisconnect:
         manager.disconnect(websocket)

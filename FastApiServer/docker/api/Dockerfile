@@ -1,6 +1,7 @@
 FROM python:3.9
 
 WORKDIR /usr/src/app
+RUN python -m pip install --upgrade pip
 RUN apt-get update
 RUN apt-get install -y default-jdk
 ADD requirements.txt .
