@@ -10,6 +10,7 @@ from starlette.responses import HTMLResponse
 from app.admin.utils import currentTime
 from app.database import init_db
 from app.env import DB_URL
+from mangum import Mangum
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 baseurl = os.path.dirname(os.path.abspath(__file__))
@@ -79,3 +80,5 @@ async def say_hello(name: str):
 @app.get("/no-match-token")
 async def no_match_token():
     return {"message": f"토큰 유효시간이 지났습니다."}
+
+handler = Mangum(app, lifespan="off")

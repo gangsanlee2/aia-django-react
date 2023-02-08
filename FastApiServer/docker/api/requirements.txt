@@ -11,6 +11,7 @@ shortuuid==1.0.11
 passlib==1.7.4
 fastapi-pagination==0.11.2
 Faker==16.6.0
+<<<<<<< HEAD:fastApiServer/docker/api/requirements.txt
 
 websockets==10.4
 PyKakao==0.0.4
@@ -18,3 +19,6 @@ seqeval==1.2.2
 openpyxl==3.1.0
 konlpy==0.6.0
 tensorflow==2.10
+=======
+mangum
+>>>>>>> ee430c8a0ccbda9c4ffa0d02de4c084f7bed7919:FastApiServer/docker/api/requirements.txt

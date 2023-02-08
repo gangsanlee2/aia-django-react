@@ -24,4 +24,8 @@ archive.zip
 *~
 .*.sw?
 
+<<<<<<< HEAD:fastApiServer/.gitignore
 secrets.py
+=======
+app/env.py
+>>>>>>> ee430c8a0ccbda9c4ffa0d02de4c084f7bed7919:FastApiServer/.gitignore
