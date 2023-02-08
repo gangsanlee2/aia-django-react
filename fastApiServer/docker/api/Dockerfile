@@ -1,6 +1,8 @@
 FROM python:3.9
 
 WORKDIR /usr/src/app
+RUN apt-get update
+RUN apt-get install -y default-jdk
 ADD requirements.txt .
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 8000

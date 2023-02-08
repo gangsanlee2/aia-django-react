@@ -16,6 +16,7 @@ baseurl = os.path.dirname(os.path.abspath(__file__))
 from fastapi import FastAPI, APIRouter, Depends, HTTPException
 from app.routers.user import router as user_router
 from app.routers.article import router as article_router
+from app.routers.chatbot import router as chatbot_router
 from app.test.user import router as test_router
 from app.admin.pagination import router as pagination_router
 from fastapi.security import APIKeyHeader
@@ -25,6 +26,7 @@ print(f" ################ app.main Started At {currentTime()} ################# 
 router = APIRouter()
 router.include_router(user_router, prefix="/users", tags=["users"])
 router.include_router(article_router, prefix="/articles", tags=["articles"])
+router.include_router(chatbot_router, prefix="/chatbot", tags=["chatbot"])
 router.include_router(test_router, prefix="/test", tags=["test"])
 router.include_router(pagination_router, prefix="/pagination", tags=["pagination"])
 app = FastAPI()
