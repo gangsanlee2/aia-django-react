@@ -15,4 +15,4 @@ def dir_path(param):
         return os.path.join(root, "services", 'chatbot_ngin', param)
 
 if __name__ == '__main__':
-    print(">> "+dir_path("carts"))
+    print(">> "+dir_path("config"))

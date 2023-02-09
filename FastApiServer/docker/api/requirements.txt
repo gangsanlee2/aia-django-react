@@ -19,3 +19,5 @@ konlpy==0.6.0
 tensorflow==2.10
 tensorflow-gpu==2.10
 mangum
+gTTS==2.3.1
+yolov5==7.0.8
